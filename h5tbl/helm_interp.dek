@@ -1,0 +1,226 @@
+        fi(:) = 0d0
+!access the table locations only once - It might be useful that it is next to itself
+        fi(1)  = tbl%Fij(TBL_VAL,dI,tI)
+        fi(2)  = tbl%Fij(TBL_VAL,dI+1,tI)
+        fi(3)  = tbl%Fij(TBL_VAL,dI,tI+1)
+        fi(4)  = tbl%Fij(TBL_VAL,dI+1,tI+1)
+        fi(5)  = tbl%Fij(TBL_DY,dI,tI)
+        fi(6)  = tbl%Fij(TBL_DY,dI+1,tI)
+        fi(7)  = tbl%Fij(TBL_DY,dI,tI+1)
+        fi(8)  = tbl%Fij(TBL_DY,dI+1,tI+1)
+        fi(9)  = tbl%Fij(TBL_DY2,dI,tI)
+        fi(10) = tbl%Fij(TBL_DY2,dI+1,tI)
+        fi(11) = tbl%Fij(TBL_DY2,dI,tI+1)
+        fi(12) = tbl%Fij(TBL_DY2,dI+1,tI+1)
+        fi(13) = tbl%Fij(TBL_DX,dI,tI)
+        fi(14) = tbl%Fij(TBL_DX,dI+1,tI)
+        fi(15) = tbl%Fij(TBL_DX, dI,tI+1)
+        fi(16) = tbl%Fij(TBL_DX, dI+1,tI+1)
+        fi(17) = tbl%Fij(TBL_DX2, dI,tI)
+        fi(18) = tbl%Fij(TBL_DX2, dI+1,tI)
+        fi(19) = tbl%Fij(TBL_DX2, dI,tI+1)
+        fi(20) = tbl%Fij(TBL_DX2, dI+1,tI+1)
+        fi(21) = tbl%Fij(TBL_DXDY,dI,tI)
+        fi(22) = tbl%Fij(TBL_DXDY,dI+1,tI)
+        fi(23) = tbl%Fij(TBL_DXDY,dI,tI+1)
+        fi(24) = tbl%Fij(TBL_DXDY,dI+1,tI+1)
+        fi(25) = tbl%Fij(TBL_DX2DY,dI,tI)
+        fi(26) = tbl%Fij(TBL_DX2DY,dI+1,tI)
+        fi(27) = tbl%Fij(TBL_DX2DY,dI,tI+1)
+        fi(28) = tbl%Fij(TBL_DX2DY,dI+1,tI+1)
+        fi(29) = tbl%Fij(TBL_DXDY2,dI,tI)
+        fi(30) = tbl%Fij(TBL_DXDY2,dI+1,tI)
+        fi(31) = tbl%Fij(TBL_DXDY2,dI,tI+1)
+        fi(32) = tbl%Fij(TBL_DXDY2,dI+1,tI+1)
+        fi(33) = tbl%Fij(TBL_DX2DY2, dI,tI)
+        fi(34) = tbl%Fij(TBL_DX2DY2, dI+1,tI)
+        fi(35) = tbl%Fij(TBL_DX2DY2, dI,tI+1)
+        fi(36) = tbl%Fij(TBL_DX2DY2, dI+1,tI+1)
+
+!..various differences
+        xt  = max( (T - tbl%T_v(tI)) * tbl%dT_i(tI), 0.0d0)
+        xd  = max( (Rho - tbl%Rho_v(dI)) * tbl%dRho_i(dI), 0.0d0)
+!        xt = 0d0
+!        xd = 0d0
+        mxt = 1.0d0 - xt
+        mxd = 1.0d0 - xd
+        
+!        write(*,*) "xd: ", xd
+!        write(*,*) "xt: ", xt
+        
+!        write(*,*) "Fi,j: ", tbl%Fij(TBL_VAL,dI,tI)
+!        write(*,*) "Fi+1,j: ", tbl%Fij(TBL_VAL,dI+1,tI)
+!        write(*,*) "Fi,j+1: ", tbl%Fij(TBL_VAL,dI,tI+1)
+!        write(*,*) "Fi+1,j+1:", tbl%Fij(TBL_VAL,dI+1,tI+1)
+!	write(*,*) 
+        
+!        write(*,*) "dF_d i,j: ", tbl%Fij(TBL_DX,dI,tI)
+!        write(*,*) "dF_d i+1,j: ", tbl%Fij(TBL_DX,dI+1,tI)
+!        write(*,*) "dF_d i,j+1: ", tbl%Fij(TBL_DX,dI,tI+1)
+!        write(*,*) "dF_d i+1,j+1: ", tbl%Fij(TBL_DX,dI+1,tI+1)
+        
+!        write(*,*)
+!        write(*,*) "dF_t i,j: ", tbl%Fij(TBL_DY,dI,tI)
+!        write(*,*) "dF_t i+1,j: ", tbl%Fij(TBL_DY,dI+1,tI)
+!        write(*,*) "dF_t i,j+1: ", tbl%Fij(TBL_DY,dI,tI+1)
+!        write(*,*) "dF_t i+1,j+1: ", tbl%Fij(TBL_DY,dI+1,tI+1)
+
+        if(dbg) then
+           write(*,*) "d3F_ddt i,j: ", tbl%Fij(TBL_DX2DY,dI,tI)
+           write(*,*) "d3F_ddt i+1,j: ", tbl%Fij(TBL_DX2DY,dI+1,tI)
+           write(*,*) "d3F_ddt i,j+1: ", tbl%Fij(TBL_DX2DY,dI,tI+1)
+           write(*,*) "d3F_ddt i+1,j+1: ", tbl%Fij(TBL_DX2DY,dI+1,tI+1)
+        endif
+
+!..the six density and six temperature basis functions
+        si0t =   psi0(xt)
+        si1t =   psi1(xt) * tbl%dT_v(tI)
+        si2t =   psi2(xt) * tbl%dT2_v(tI)
+	
+        si0mt =  psi0(mxt)
+        si1mt = -psi1(mxt) * tbl%dT_v(tI)
+        si2mt =  psi2(mxt) * tbl%dT2_v(tI)
+        
+        si0d =   psi0(xd)
+        si1d =   psi1(xd) * tbl%dRho_v(dI)
+        si2d =   psi2(xd) * tbl%dRho2_v(dI)
+        
+        si0md =  psi0(mxd)
+        si1md = -psi1(mxd) * tbl%dRho_v(dI)
+        si2md =  psi2(mxd) * tbl%dRho2_v(dI)
+        
+!        write(*,*) "si0d: ", si0d, si0md
+!        write(*,*) "si0t: ", si0t, si0mt
+!        write(*,*) "si1d: ", si1d, si1md
+!        write(*,*) "si1t: ", si1t, si1mt
+        
+!..first derivatives of the weight functions
+        dsi0t =   dpsi0(xt) * tbl%dT_i(tI)
+        dsi1t =   dpsi1(xt)
+        dsi2t =   dpsi2(xt) * tbl%dT_v(tI)
+        
+        dsi0mt = -dpsi0(mxt) * tbl%dT_i(tI)
+        dsi1mt =  dpsi1(mxt)
+        dsi2mt = -dpsi2(mxt) * tbl%dT_v(tI)
+        
+        dsi0d =   dpsi0(xd) * tbl%dRho_i(dI)
+        dsi1d =   dpsi1(xd)
+        dsi2d =   dpsi2(xd) * tbl%dRho_v(dI)
+        
+        dsi0md = -dpsi0(mxd) * tbl%dRho_i(dI)
+        dsi1md =  dpsi1(mxd)
+        dsi2md = -dpsi2(mxd) * tbl%dRho_v(dI)
+        
+!..second derivatives of the weight functions
+        ddsi0t =   ddpsi0(xt) * tbl%dT2_i(tI)
+        ddsi1t =   ddpsi1(xt) * tbl%dT_i(tI)
+        ddsi2t =   ddpsi2(xt)
+        
+        ddsi0mt =  ddpsi0(mxt) * tbl%dT2_i(tI)
+        ddsi1mt = -ddpsi1(mxt) * tbl%dT_i(tI)
+        ddsi2mt =  ddpsi2(mxt)
+        
+        ddsi0d =   ddpsi0(xd) * tbl%dRho2_i(dI)
+        ddsi1d =   ddpsi1(xd) * tbl%dRho_i(dI)
+        ddsi2d =   ddpsi2(xd)
+        
+        ddsi0md =  ddpsi0(mxd) * tbl%dRho2_i(dI)
+        ddsi1md = -ddpsi1(mxd) * tbl%dRho_i(dI)
+        ddsi2md =  ddpsi2(mxd)
+        
+!..third derivatives of the weight functions
+        dddsi0t =   dddpsi0(xt) * tbl%dT3_i(tI)
+        dddsi1t =   dddpsi1(xt) * tbl%dT2_i(tI)
+        dddsi2t =   dddpsi2(xt) * tbl%dT_i(tI)
+        
+        dddsi0mt = -dddpsi0(mxt) * tbl%dT3_i(tI)
+        dddsi1mt =  dddpsi1(mxt) * tbl%dT2_i(tI)
+        dddsi2mt = -dddpsi2(mxt) * tbl%dT_i(tI)
+        
+        dddsi0d =   dddpsi0(xd) * tbl%dRho3_i(dI)
+        dddsi1d =   dddpsi1(xd) * tbl%dRho2_i(dI)
+        dddsi2d =   dddpsi2(xd) * tbl%dRho_i(dI)
+        
+        dddsi0md = -dddpsi0(mxd) * tbl%dRho3_i(dI)
+        dddsi1md =  dddpsi1(mxd) * tbl%dRho2_i(dI)
+        dddsi2md = -dddpsi2(mxd) * tbl%dRho_i(dI)
+        
+        
+!..the free energy
+        free  = h5(si0t,   si1t,   si2t,   si0mt,   si1mt,   si2mt,&
+                   si0d,   si1d,   si2d,   si0md,   si1md,   si2md)
+        
+!..first derivative with respect to density
+        df_d  = h5(si0t,   si1t,   si2t,   si0mt,   si1mt,   si2mt,&
+                   dsi0d,  dsi1d,  dsi2d,  dsi0md,  dsi1md,  dsi2md)
+        
+!..first derivative with respect to temperature
+        df_t = h5(dsi0t,  dsi1t,  dsi2t,  dsi0mt,  dsi1mt,  dsi2mt,&
+                  si0d,   si1d,   si2d,   si0md,   si1md,   si2md)
+        
+!..second derivative with respect to density**2
+         df_dd = h5(si0t,   si1t,   si2t,   si0mt,   si1mt,   si2mt,&
+                    ddsi0d, ddsi1d, ddsi2d, ddsi0md, ddsi1md, ddsi2md)
+         
+!..second derivative with respect to temperature**2
+         df_tt = h5(ddsi0t, ddsi1t, ddsi2t, ddsi0mt, ddsi1mt, ddsi2mt,&
+              si0d,   si1d,   si2d,   si0md,   si1md,   si2md)
+         
+         !..second derivative with respect to temperature and density
+         df_dt = h5(dsi0t,  dsi1t,  dsi2t,  dsi0mt,  dsi1mt,  dsi2mt,&
+                   dsi0d,  dsi1d,  dsi2d,  dsi0md,  dsi1md,  dsi2md)
+         
+         !..third derivative with respect to temperature**3
+         df_ttt = h5(dddsi0t, dddsi1t, dddsi2t, dddsi0mt, dddsi1mt, dddsi2mt,&
+              si0d,   si1d,   si2d,   si0md,   si1md,   si2md)
+         
+         !..third derivative with respect to density temperature**2
+         df_dtt = h5(ddsi0t, ddsi1t, ddsi2t, ddsi0mt, ddsi1mt, ddsi2mt,&
+              dsi0d,   dsi1d,   dsi2d,   dsi0md,   dsi1md,   dsi2md)
+         
+         !..third derivative with respect to density**2 temperature
+         df_ddt = h5(dsi0t, dsi1t, dsi2t, dsi0mt, dsi1mt, dsi2mt,&
+              ddsi0d, ddsi1d, ddsi2d, ddsi0md, ddsi1md, ddsi2md)
+
+         !..third derivative with respect to density**3
+         df_ddd = h5(si0t, si1t, si2t, si0mt, si1mt, si2mt, &
+              dddsi0d, dddsi1d, dddsi2d, dddsi0md, dddsi1md, dddsi2md)
+         
+         
+!! OK since we don't care about chemical stuff, we can stop here.
+!! We can compute first and second derivatives of P, S, and E purely as
+!! a function of the derivitives of free energy up to third order
+         if(dbg) then
+            write(*,*) "free: ", free
+            write(*,*) "df_d: ", df_d
+            write(*,*) "df_t: ", df_t
+            write(*,*) "df_dd: ", df_dd
+            write(*,*) "df_tt: ", df_tt
+            write(*,*) "df_dt: ", df_dt
+            write(*,*) "df_ddd: ", df_ddd
+            write(*,*) "df_ddt: ", df_ddt
+            write(*,*) "df_dtt: ", df_dtt
+            write(*,*) "df_ttt: ", df_ttt
+         endif
+
+         Pvect(i_val) = RhoSQ * df_d
+         Pvect(i_drho) = RhoSQ * df_dd + 2 * Rho * df_d
+         Pvect(i_dt) = RhoSQ * df_dt
+         Pvect(i_drho2) = RhoSQ * df_ddd + 4. * Rho * df_dd + 2. * df_d 
+         Pvect(i_dt2) = RhoSQ * df_dtt
+         Pvect(i_drhodt) = RhoSQ * df_ddt + 2. * Rho * df_dt
+         
+         Svect(i_val) = -df_t
+         Svect(i_drho) = -df_tt
+         Svect(i_dt) = -df_dt
+         Svect(i_drho2) = -df_ddt
+         Svect(i_dt2) = - df_ttt
+         Svect(i_drhodt) = - df_dtt
+         
+         Evect(i_val) = free - T * df_t
+         Evect(i_drho) = df_d - T * df_dt
+         Evect(i_dt) = -T * df_tt
+         Evect(i_drho2) = df_dd - T*df_ddt
+         Evect(i_dt2) = -df_tt - T * df_ttt
+         Evect(i_drhodt) = - T * df_dtt
+         
